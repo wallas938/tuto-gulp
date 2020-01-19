@@ -1,16 +1,14 @@
 const express = require('express');
 const app = express();
 const fs = require('fs');
+const path = require('path')
+const mime = require('mime-types')
 
-console.log(process.env.PORT)
-app.use(express.static('src'))
-
+app.use(express.static(path.join(__dirname, 'dist')))
 app.get('/', function(req, res, next) {
-    fs.readFile('src/index.html', (err, data) => {
-        if (err) throw err;
-        return res.status(200)
-            .setHeader('Content-Type', 'text/css')
-            .send(data);
+    fs.readFile('dist/index.html', (err, data) => {
+        res.status(200)
+        res.end(data);
     })
 });
 

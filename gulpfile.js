@@ -66,6 +66,8 @@ gulp.task('processJsFiles', async function() {
         .pipe(gulp.dest('dist/js'))
 });
 
+gulp.task('build', gulp.parallel(['processJsFiles', 'sass', 'copyHtml']));
+
 gulp.task('watch', () => {
     gulp.watch('src/js/*.js', gulp.parallel(['processJsFiles']));
     gulp.watch('src/images/*', gulp.parallel(['imageMin']));
@@ -75,4 +77,4 @@ gulp.task('watch', () => {
 
 /*  Make a default task with just the 'gulp' command that will
     launch all declared tasks in the array parameter  */
-gulp.task('default', gulp.series(['message', 'processJsFiles', 'copyHtml', 'imageMin', 'sass', 'nodemon']));
+gulp.task('default', gulp.series(['watch', 'nodemon']));
